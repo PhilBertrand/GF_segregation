@@ -17,7 +17,7 @@ require(rgeos)
 require(track2kba)
 require(move)
 
-tmp <- data ## your data, ideally per colony
+tmp <- data ## your data, might be performed on different subgrouping (e.g., population, colony)
 ntr <- aggregate(birdTrip ~ ring*colony, tmp, function(x) length(unique(x))) ## Weighing data, here nb of trips per individual 
 
 ## Projection shift, ideally metric based
