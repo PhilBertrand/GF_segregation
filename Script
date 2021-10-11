@@ -4,7 +4,7 @@
 ############################# ctmm Home range analysis #################################
 ########################################################################################
 
-## For more in-depth information, please see ctmm package usage page https://ctmm-initiative.github.io/ctmmwebdoc/articles/package_usage.html
+## For more in-depth information, please see ctmmweb package usage page https://ctmm-initiative.github.io/ctmmwebdoc/articles/package_usage.html
 ## And key-papers regarding these analyses:
 ## Fleming CH, Fagan WF, Mueller T, Olson KA, Leimgruber P, Calabrese JM. 2015. Rigorous home range estimation with movement data: a new autocorrelated kernel density estimator. Ecology. 96(5):1182–1188. doi:10.1890/14-2010.1.
 ## Calabrese JM, Fleming CH, Gurarie E. 2016. Ctmm: an R package for analyzing animal relocation data as a continuous-time stochastic process. Methods Ecol Evol. 7(9):1124–1132. doi:10.1111/2041-210X.12559.
@@ -19,13 +19,14 @@ require(move)
 
 tmp <- data ## your data, ideally per colony
 ntr <- aggregate(birdTrip ~ ring*colony, tmp, function(x) length(unique(x))) ## Weighing data, here nb of trips per individual 
-ex <- extent(120000, 460000, 8600000, 8900000) ## extent specification
 
 ## Projection shift, ideally metric based
 crdref <- CRS("+init=epsg:4326")
 pts <- SpatialPointsDataFrame(tmp[,c("Longitude", "Latitude")], tmp,proj4string=crdref)
 s <- spTransform(pts, "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0")
 df <- as.data.frame(s)
+
+ex <- extent(120000, 460000, 8600000, 8900000) ## extent specification
 
 ## Data formatting
 t <- move(x=df$Longitude.2, y=df$Latitude.2, ## Using move package facilitating data format
