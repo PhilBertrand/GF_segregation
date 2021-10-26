@@ -52,7 +52,6 @@ tl <- data[namesSUB$identity]
 memory.limit(size=800000) ## Updating memory use
 hrange <- akde(tl, CTMM = mls2, grid=list(extent = ex, dr = 500)) ## AKDE analysis
 names(hrange) <- names(mls2)
-la <- lapply(hrange, summary, IC = "LOOCV")
 
 ## Population-level home range
 mhr <- mean(hrange, weights = ntr$birdTrip)
@@ -67,8 +66,7 @@ repA <- repAssess(s, rt, avgMethod = "mean", nCores = 8, levelUD = 50, bootTable
 
 ## Visualization          
 ggplot() +
-  geom_point(repA[[2]], mapping = aes(x=SampleSize, y=InclusionMean), shape = 21, size = 2, 
-             fill = "#238A8DFF", alpha = 0.8) +
+  geom_point(repA[[2]], mapping = aes(x=SampleSize, y=InclusionMean), shape = 21, size = 2, fill = "#238A8DFF", alpha = 0.8) +
   geom_path(repA[[2]], mapping = aes(x=SampleSize, y=pred), size = 1, color = "#440154FF", linetype = "dashed", show.legend=FALSE) +
   theme_bw() +
   theme(axis.text=element_text(size=10)) +
